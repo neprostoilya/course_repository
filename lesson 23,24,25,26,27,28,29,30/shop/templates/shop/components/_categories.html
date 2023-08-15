@@ -1,0 +1,11 @@
+<section class="pt-5">
+    <header class="text-center">
+      <h2 class="h5 text-uppercase mb-4">Категории</h2>
+    </header>
+    <div class="row">
+      {% for category in categories %}
+        <div class="col-md-4"><a class="category-item" href="category/{{ category.slug }}/"><img class="img-fluid" src="{{ category.get_parent_category_photo }}" alt=""/><strong class="category-item-title">{{ category.title }}</strong></a>
+        </div>
+      {% endfor %}
+    </div>
+  </section> 

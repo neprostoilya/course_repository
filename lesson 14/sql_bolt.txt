@@ -1,0 +1,192 @@
+Решение задач с SQLBolt
+
+# Task №1
+# Find the title of each film
+
+SELECT title FROM movies;
+
+------------------------------------
+
+# Task №2
+# Find the director of each film 
+
+SELECT director FROM movies;
+
+------------------------------------
+
+# Task №3
+# Find the title and director of each film
+
+SELECT title, director FROM movies;
+
+------------------------------------
+
+# Task №4
+# Find the title and year of each film
+
+SELECT title, year FROM movies;
+
+------------------------------------
+
+# Task №5
+# Find all the information about each film
+
+SELECT * FROM movies;
+
+------------------------------------
+
+# Task №6
+# Find the movie with a row id of 6
+
+SELECT * FROM movies WHERE id = 6;
+
+------------------------------------
+
+# Task №7
+# Find the movies released in the years between 2000 and 2010
+
+SELECT * FROM movies WHERE year BETWEEN 2000 AND 2010;
+
+------------------------------------
+
+# Task №8
+# Find the movies not released in the years between 2000 and 2010
+
+SELECT * FROM movies WHERE year NOT BETWEEN 2000 AND 2010;
+
+-------------------------------------
+
+# Task №9
+# Find the first 5 Pixar movies and their release year 
+
+SELECT * FROM movies WHERE year BETWEEN 1995 AND 2010 LIMIT 5;
+
+
+------------------------------------
+
+# Task №10
+# Find all the Toy Story movies
+
+SELECT * FROM movies
+WHERE title LIKE "Toy Story%%";
+
+------------------------------------
+
+# Task №11
+# Find all the movies directed by John Lasseter
+
+SELECT * FROM movies
+WHERE director = "John Lasseter";
+
+------------------------------------
+
+# Task №12
+# Find all the movies (and director) not directed by John Lasseter
+
+SELECT * FROM movies
+WHERE director != "John Lasseter";
+
+------------------------------------
+
+# Task №13
+# Find all the WALL-* movies 
+
+SELECT * FROM movies
+WHERE title LIKE "WALL-%";
+
+------------------------------------
+
+# Task №14
+# List all directors of Pixar movies (alphabetically), without duplicates 
+
+SELECT DISTINCT director 
+FROM movies ORDER BY director;
+
+------------------------------------
+
+# Task №15
+# List the last four Pixar movies released (ordered from most recent to least)
+
+SELECT *
+FROM movies 
+ORDER BY year DESC
+LIMIT 4;
+
+------------------------------------
+
+# Task №16
+# List the first five Pixar movies sorted alphabetically 
+
+SELECT * FROM movies
+ORDER BY title 
+LIMIT 5;
+
+------------------------------------
+
+# Task №17
+# List the next five Pixar movies sorted alphabetically
+
+SELECT * FROM movies
+ORDER BY title 
+LIMIT 5 OFFSET 5;
+
+------------------------------------
+
+# Task №18
+# List all the Canadian cities and their populations 
+
+SELECT * FROM north_american_cities
+WHERE country = "Canada";
+
+------------------------------------
+
+# Task №19
+# Order all the cities in the United States by their latitude from north to south
+
+SELECT * FROM north_american_cities
+WHERE country =  "United States"
+ORDER BY latitude DESC;
+
+------------------------------------
+
+# Task №20
+# List all the cities west of Chicago, ordered from west to east
+
+SELECT * FROM north_american_cities
+WHERE  longitude < -87.629798
+ORDER BY longitude;
+
+------------------------------------
+
+# Task №21
+# List the two largest cities in Mexico (by population) 
+
+SELECT * FROM north_american_cities
+WHERE Country = "Mexico"
+ORDER BY 
+population DESC 
+LIMIT 2;
+
+
+
+------------------------------------
+
+# Task №22
+# List the third and fourth largest cities 
+# (by population) in the United States and their population
+
+SELECT * FROM north_american_cities
+WHERE  country = "United States"
+ORDER BY population 
+DESC LIMIT 2 
+OFFSET 2;
+
+------------------------------------
+
+# Task №23
+# Find the domestic and international sales for each movie
+
+SELECT title, domestic_sales, international_sales 
+FROM movies
+INNER JOIN boxoffice
+    ON movies.id = boxoffice.movie_id;

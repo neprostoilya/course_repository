@@ -1,0 +1,63 @@
+<ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+  <li class="nav-item"><a class="nav-link text-uppercase active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Описание</a></li>
+  <li class="nav-item"><a class="nav-link text-uppercase" id="reviews-tab" data-bs-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Отзывы</a></li>
+</ul>
+<div class="tab-content mb-5" id="myTabContent">
+  <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+    <div class="p-4 p-lg-5 bg-white">
+      <h6 class="text-uppercase">ОПИСАНИЕ ТОВАРА </h6>
+      <p class="text-muted text-sm mb-0">{{ product.info }} </p>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
+    <div class="p-4 p-lg-5 bg-white">
+      <div class="row">
+
+        {% if request.user.is_authenticated %}
+          <div class="container">
+            <form action="{% url 'save_review' product.pk %}"   method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ review_form.as_p }}
+              <button class="btn btn-success">Оставить отзыв</button>
+            </form>
+          </div>
+        {% else %}
+        <div class="container">
+          <h4 class="text-center">
+              Отзыв могут оставить только зарегистрированные пользователи
+            <a href="{% url 'login_registration' %}">Войти/Зарегистрироваться</a>
+          </h4>
+        </div>
+        {% endif %}
+
+        <div class="col-lg-8">
+          {% for review in reviews %}
+          <div class="d-flex mb-3">
+            <div class="flex-shrink-0"><img class="rounded-circle" src="img/customer-1.png" alt="" width="50"/></div>
+            <div class="ms-3 flex-shrink-1">
+              <h6 class="mb-0 text-uppercase">{{ review.author.username }}</h6>
+              <p class="small text-muted mb-0 text-uppercase">{{ review.created_at }}</p>
+              <ul class="list-inline mb-1 text-xs">
+              {% if review.grade %}
+                {% for i in review.grade|get_range %}
+                   <li class="list-inline-item m-0"><i class="fas fa-star text-warning"></i></li>
+                {% endfor %}
+                {% for i in review.grade|get_remain %}
+                   <li class="list-inline-item m-0"><i class="fas fa-star  text-muted"></i></li>
+                {% endfor %}
+
+
+
+              {% endif %}
+
+              </ul>
+              <p class="text-sm mb-0 text-muted">{{ review.text }}</p>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

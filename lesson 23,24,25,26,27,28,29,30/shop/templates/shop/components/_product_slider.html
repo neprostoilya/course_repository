@@ -1,0 +1,22 @@
+<div class="row m-sm-0">
+  <div class="col-sm-2 p-sm-0 order-2 order-sm-1 mt-2 mt-sm-0 px-xl-2">
+    <div class="swiper product-slider-thumbs">
+      <div class="swiper-wrapper">
+        {% for image in product.images.all %}
+        <div class="swiper-slide h-auto">
+            <img class="img-fluid" src="{{ image.image.url }}" alt="..."></div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-10 order-1 order-sm-2">
+    <div class="swiper product-slider">
+      <div class="swiper-wrapper">
+          {% for image in product.images.all %}
+              <div class="swiper-slide h-auto"><a class="glightbox product-view" href="{{ image.image.url }}" data-gallery="gallery2" data-glightbox="Product item 1">
+                  <img class="img-fluid" src="{{ image.image.url }}" alt="..."></a></div>
+          {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

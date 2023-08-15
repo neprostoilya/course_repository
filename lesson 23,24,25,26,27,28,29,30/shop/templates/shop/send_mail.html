@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+
+{% if request.user.is_superuser %}
+<main>
+    <!-- Navbar-->
+    {% include 'components/_navbar.html' %}
+
+    <div class="container">
+        <div><div style="margin-top: 150px;"></div></div>
+        <h3>Текст почты</h3>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <textarea name="text" id="" cols="30" rows="10" placeholder="Текст..." class="form-control"></textarea>
+            <br>
+            <button  class="btn btn-success" type="submit">Отправить всем</button >
+        </form>
+        <div><div style="margin-top: 150px;"></div></div>
+    </div>
+    {% else %}
+    <meta http-equiv="Refresh" content="0; url='{% url 'index' %}"/>
+    {% endif %}
+    <br>
+    <!-- Footer -->
+    {% include 'components/_footer.html' %}        
+</main>
+{% endblock main %}

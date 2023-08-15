@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block main %}
+<main>
+<!-- Navbar-->
+    {% include 'components/_navbar.html' %}
+    <div><div style="margin-top: 150px;"></div></div>
+    <div class="container">
+        <div class="content">
+            <h2>Оплата прошла успешно! Спасибо за покупку!</h2>
+            <p>Вы можете продолжить покупки.</p>
+            <a href="{% url 'index' %}" class="btn btn-success">Вернуться на главную</a>
+        </div>
+    
+    </div>
+    <div><div style="margin-top: 470px;"></div></div>
+<!-- footer -->
+    {% include 'components/_footer.html' %}     
+</main>
+{% endblock main %}
+<div><div style="margin-top: 150px;"></div></div>
+<div class="container">
+    <div class="content">
+        <h2>Оплата прошла успешно! Спасибо за покупку!</h2>
+        <p>Вы можете продолжить покупки.</p>
+        <a href="{% url 'index' %}" class="btn btn-success">Вернуться на главную</a>
+    </div>
+
+</div>
+<div><div style="margin-top: 350px;"></div></div>

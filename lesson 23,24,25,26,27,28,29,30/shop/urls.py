@@ -1,0 +1,23 @@
+from django.urls import path
+from .views import *
+
+urlpatterns = [
+    path('', Page.as_view(), name='index'),
+    path('category/<slug:slug>/', SubCategoryPage.as_view(), name='category_detail'),
+    path('product/<slug:slug>/', ProductPage.as_view(), name='product_page'),
+    path('login_registration/', login_registration, name='login_registration'),
+    path('login_authentication/', login_authentication, name='login_authentication'),
+    path('login', user_login, name='login'),
+    path('logout', user_logout, name='logout'),
+    path('register', register, name='register'),
+    path('save_review/<int:product_id>', save_review, name='save_review'),
+    path('add-favorite/<slug:product_slug>/', save_favorite_product, name='add_favorite'),
+    path('my_favorite/', FavoriteProductsView.as_view(), name='favorite_products'),
+    path('save_mail/', save_mail, name='save_mail'),
+    path('send_mail/', send_mail_to_customers, name='send_mail'),
+    path('cart/', cart, name='cart'),
+    path('to_cart/<int:product_id>/<str:action>/', to_cart, name='to_cart'),
+    path('checkout/', checkout, name='checkout'),
+    path('payment/', create_checkout_session, name='payment'),
+    path('payment_success/', successPayment, name='success')
+]

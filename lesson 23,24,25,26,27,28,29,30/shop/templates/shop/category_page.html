@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<main>
+<!-- Navbar-->
+    {% include 'components/_navbar.html' %}
+    <div class="container">
+      <!-- HERO SECTION-->
+      <section class="py-5 bg-light">
+        <div class="container">
+          <div class="row px-4 px-lg-5 py-lg-4 align-items-center">
+            <div class="col-lg-6">
+              <h1 class="h2 text-uppercase mb-0">Магазин</h1>
+            </div>
+            <div class="col-lg-6 text-lg-end">
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-lg-end mb-0 px-0 bg-light">
+                  <li class="breadcrumb-item"><a class="text-dark" href="{% url 'index' %}">Главная</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Категория</li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="py-5">
+        <div class="container p-0">
+          <div class="row">
+            <!-- SHOP SIDEBAR-->
+            <div class="col-lg-3 order-2 order-lg-1">
+              <h5 class="text-uppercase mb-4">Фильтр</h5>
+              
+              {% include 'shop/components/_sort.html' %}
+            </div>
+            <!-- SHOP LISTING-->
+            <div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+              <div class="row mb-3 align-items-center">
+                <div class="col-lg-6 mb-2 mb-lg-0">
+                  <p class="text-sm text-muted mb-0">
+                    Показано {{ products.count }} товара из {{ paginator.count }} товаров
+                  </p>
+                </div>
+                <div class="col-lg-6">
+
+                </div>
+              </div>
+              <div class="row">
+                <!-- PRODUCT-->
+                {% for product in products %}
+                <div class="col-lg-4 col-sm-6">
+                  {% include 'shop/components/_product_cart.html' %}
+                </div>
+                {% endfor %}
+              </div>
+              <!-- PAGINATION-->  
+              {% include 'shop/components/_pagination.html' %}
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+<!-- footer -->
+    {% include 'components/_footer.html' %}     
+</main>
+{% endblock main %}

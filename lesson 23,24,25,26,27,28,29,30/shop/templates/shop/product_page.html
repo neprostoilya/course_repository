@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block main %}
+<main>
+    <!-- Navbar-->
+    {% include 'components/_navbar.html' %}
+    <section class="py-5">
+        <div class="container">
+          <div class="row mb-5">
+            <div class="col-lg-6">
+            <!-- PRODUCT SLIDER-->
+                {% include 'shop/components/_product_slider.html' %}
+            </div>
+            <!-- PRODUCT DETAILS-->
+                {% include 'shop/components/_product_detail.html' %}
+            <!-- DETAILS TABS-->
+                {% include 'shop/components/_product_description_tables.html' %}
+            <!-- RELATED PRODUCTS-->
+            <h2 class="h5 text-uppercase mb-4">Вам также может понравиться</h2>
+            <div class="row">
+                <!-- PRODUCT-->
+                <div class="col-lg-3 col-sm-6">
+                    {% for product in products %}
+                        {% include 'shop/components/_product_cart.html' %}        
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+      </section>
+    <!-- Footer -->
+    {% include 'components/_footer.html' %}        
+</main>
+{% endblock main %}

@@ -1,0 +1,33 @@
+{% load shop_tags %}
+{% get_sorted as data %}
+
+<div class="py-2 px-4 bg-dark text-white mb-3">
+    <strong class="small text-uppercase fw-bold">
+        подкатегории: {{ category }}
+    </strong>
+</div>
+
+{% get_subcategories category as categories %}
+{% for category in categories %}
+<li class="mb-2">
+    <a class="reset-anchor" href="?type={{ category.slug }}">
+        {{ category }}
+    </a>
+</li>
+{% endfor %}
+
+{% for key in data %}
+<div class="py-2 px-4 bg-dark text-white mb-3 ">
+    <strong class="small text-uppercase fw-bold">
+        {{key.title}}
+    </strong>
+</div>
+    {% for sorter in key.sorters %}
+    <li class="mb-2">
+        <a class="reset-anchor" href="?sort={{ sorter.0 }}">
+            {{ sorter.1 }}
+        </a>
+    </li>
+
+    {% endfor %}
+{% endfor %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock title %}
+
+{% block main %}
+<main>
+<!-- Navbar-->
+    {% include 'components/_navbar.html' %}
+
+<!-- HERO SECTION-->
+    {% include 'components/_hero.html' %}
+
+<!-- footer -->
+    {% include 'components/_footer.html' %}     
+</main>
+{% endblock main %}

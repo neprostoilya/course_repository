@@ -1,0 +1,19 @@
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center justify-content-lg-end">
+    {% if page_obj.has_other_pages %}
+        {% if page_obj.has_previous %}
+            <li class="page-item mx-1"><a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+        {% endif %}
+        {% for page in paginator.page_range %}
+            {% if page_obj.number == page %}
+                <li class="page-item mx-1 active"><a class="page-link" href="#!">{{ page }}</a></li>
+            {% else %}
+                <li class="page-item mx-1"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+            <li class="page-item ms-1"><a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+        {% endif %}
+    {% endif %}
+</ul>
+</nav>

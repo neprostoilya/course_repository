@@ -1,0 +1,31 @@
+{% load   shop_tags %}
+<div class="col-lg-6">
+    <ul class="list-inline mb-2 text-sm">
+      <li class="list-inline-item m-0"><i class="fas fa-star small text-warning"></i></li>
+      <li class="list-inline-item m-0 1"><i class="fas fa-star small text-warning"></i></li>
+      <li class="list-inline-item m-0 2"><i class="fas fa-star small text-warning"></i></li>
+      <li class="list-inline-item m-0 3"><i class="fas fa-star small text-warning"></i></li>
+      <li class="list-inline-item m-0 4"><i class="fas fa-star small text-warning"></i></li>
+    </ul>
+    <h1>{{ product.title }}</h1>
+    <p class="text-muted lead">${{ product.price }}</p>
+    <p class="text-sm mb-4">{{ product.description }}</p>
+    <div class="row align-items-stretch mb-4">
+      <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="{% url 'to_cart' product.pk 'add' %}">Добавить в корзину</a></div>
+    </div>
+    {% if request.user.is_authenticated %}
+    {% get_favorite_products request.user as fav_products %}
+    {% endif %}
+    {% if product in fav_products and request.user.is_authenticated %}
+      <li class="list-inline-item m-0 p-0"><a href="{% url 'add_favorite' product.slug %}"><i class="fas fa-heart" style="color:rgb(234, 0, 94)"></i></a><a class="px-1 py-2 mb-1 bg-white text-muted" href="{% url 'add_favorite' product.slug %}">Удалить с избранного</a>
+    {% else %}
+      <li class="list-inline-item m-0 p-0"><a href="{% url 'add_favorite' product.slug %}"><i class="far fa-heart"></i></a></li><a class="px-1 py-2 mb-1 bg-white text-muted" href="{% url 'add_favorite' product.slug %}">Добавить в избранное</a>
+    {% endif %}
+    <br><br>
+    <ul class="list-unstyled small d-inline-block">
+      <li class="px-3 py-2 mb-1 bg-white"><strong class="text-uppercase">В наличии:</strong><span class="ms-2 text-muted">{{ product.quantity }} шт.</span></li>
+      <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Категория:</strong><a class="reset-anchor ms-2" href="#!">{{ product.category }}</a></li>
+      <li class="px-3 py-2 mb-1 bg-white text-muted"><strong class="text-uppercase text-dark">Размер:</strong><a class="reset-anchor ms-2" href="#!">{{ product.size }}</a></li>
+    </ul>
+  </div>
+</div>

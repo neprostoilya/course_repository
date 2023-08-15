@@ -1,0 +1,14 @@
+<!-- TRENDING PRODUCTS-->
+<section class="py-5">
+<header>
+    <h2 class="h5 text-uppercase mb-4">ТОП ПОПУЛЯРНЫХ ТОВАРОВ</h2>
+</header>
+<div class="row">
+    <!-- PRODUCT-->
+    {% for product in top_products %}
+    <div class="col-xl-3 col-lg-4 col-sm-6">
+        {% include 'shop/components/_product_cart.html' %}
+    </div>
+    {% endfor %}
+</div>
+</section>
