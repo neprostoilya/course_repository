@@ -1,33 +1,21 @@
-# Найти бота https://t.me/Trans_let_bot
-
-
-
- 
-
-from library.db import get_token, db_history_write, db_history_read
-from library.keyboards import generate_languages, get_key, LANGUAGES
-
 from googletrans import Translator
-
 from aiogram import Bot, Dispatcher, executor
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 
-
+from library.db import get_token, db_history_write, db_history_read
+from library.keyboards import generate_languages, get_key, LANGUAGES
 TOKEN = get_token()
 bot = Bot(token=TOKEN)
 storage = MemoryStorage()
 dp = Dispatcher(bot, storage=storage)
 
-
-
 class Questions(StatesGroup):
     src = State()
     dst = State()
     text = State()
-
 
 @dp.message_handler(commands=['start', 'help', 'about', 'history'])
 async def command_start(message: Message):
@@ -53,7 +41,6 @@ async def get_history(message: Message):
 Ваш текст: {original_text}
 Бот перевел: {translate_text}''')
 
-
 async def start_questions(message: Message):
     await Questions.src.set()
     await message.answer('С какого языка хотите перевести? ',
@@ -71,10 +58,7 @@ async def confirm_src_ask_dst(message: Message, state: FSMContext):
             await state.finish()
     else: 
         await message.answer('Такого языка нет!')
-
-
     
-
 @dp.message_handler(content_types=['text'], state=Questions.dst)  
 async def confirm_dst_ask_text(message: Message, state: FSMContext):
     if message.text in LANGUAGES.values():
@@ -85,9 +69,6 @@ async def confirm_dst_ask_text(message: Message, state: FSMContext):
                             reply_markup=ReplyKeyboardRemove())
     else: 
         await message.answer('Такого языка нет!')
-
-
-
 
 @dp.message_handler(content_types=['text'], state=Questions.text)
 async def confirm_text_translate(message: Message, state: FSMContext):
@@ -106,11 +87,7 @@ async def confirm_text_translate(message: Message, state: FSMContext):
     else:
         chat_id = message.chat.id
         db_history_write(chat_id, src, dst, text, trans_text)
-
         await message.answer(trans_text)
         await state.finish()
         await start_questions(message)
-
-
-
 executor.start_polling(dp)
